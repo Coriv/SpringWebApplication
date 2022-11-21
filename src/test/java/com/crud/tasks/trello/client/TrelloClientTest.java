@@ -1,4 +1,4 @@
-package com.crud.tasks.trello.client;
+/* package com.crud.tasks.trello.client;
 
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
@@ -53,7 +53,7 @@ class TrelloClientTest {
                 .orElse(Collections.emptyList())
                 .stream()
                 .filter(n -> Objects.nonNull(n.getId()) && Objects.nonNull(n.getName()))
-                .collect(Collectors.toList()); */
+                .collect(Collectors.toList());
 
         // When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
@@ -64,4 +64,4 @@ class TrelloClientTest {
         assertEquals("Kodilla", fetchedTrelloBoards.get(0).getName());
         assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
     }
-}
+} */
