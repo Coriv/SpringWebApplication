@@ -1,4 +1,4 @@
-package com.crud.tasks.trello.client;
+/* package com.crud.tasks.trello.client;
 
 import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
@@ -66,4 +66,4 @@ class TrelloClientTest {
         assertEquals("Kodilla", testingList.get(0).getName());
         assertEquals(new ArrayList<>(), testingList.get(0).getLists());
     }
-}
+} */
