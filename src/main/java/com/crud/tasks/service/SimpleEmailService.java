@@ -17,10 +17,10 @@ public class SimpleEmailService {
 
     private final JavaMailSender javaMailSender;
 
-    public void send(SimpleMailMessage mailMessage) {
+    public void send(final Mail mail) {
         log.info("Starting email preparation...");
         try {
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(prepareMail(mail));
             log.info("Email has been sent.");
         } catch (MailException e) {
             log.error("Failed to process email sending: " + e.getMessage());
