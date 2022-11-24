@@ -37,7 +37,7 @@ class SimpleEmailServiceTestSuite {
         mailMessage.setText(mail.getMessage());
 
         //When
-        simpleEmailService.send(mailMessage);
+        simpleEmailService.send(mail);
 
         //Then
         verify(javaMailSender, times(1)).send(mailMessage);
