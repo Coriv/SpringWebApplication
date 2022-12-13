@@ -17,7 +17,7 @@ import java.util.Optional;
 public class TrelloService {
     private final static String SUBJECT = "Tasks: New Trello card";
     private final TrelloClient trelloClient;
-    private final SimpleEmailService emailService;
+    private final SimpleMailService emailService;
     private final AdminConfig adminConfig;
 
     public List<TrelloBoardDto> fetchTrelloBoards() {

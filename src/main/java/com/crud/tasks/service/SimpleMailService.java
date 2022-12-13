@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,27 +15,38 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SimpleEmailService {
+public class SimpleMailService {
 
     private final JavaMailSender javaMailSender;
+    private final MailCreatorService mailCreatorService;
 
     public void send(final Mail mail) {
         log.info("Starting email preparation...");
         try {
-            javaMailSender.send(prepareMail(mail));
+            javaMailSender.send(createMimeMailMessage(mail));
             log.info("Email has been sent.");
         } catch (MailException e) {
             log.error("Failed to process email sending: " + e.getMessage());
         }
     }
 
-    private SimpleMailMessage prepareMail(Mail mail) {
+    private MimeMessagePreparator createMimeMailMessage(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
+        };
+    }
+
+    private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
+        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
         Optional.ofNullable(mail.getToCc()).ifPresent(
-            toCc -> mailMessage.setCc(toCc));
+                toCc -> mailMessage.setCc(toCc)
+        );
         return mailMessage;
     }
 }

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ class TrelloServiceTestSuite {
     private TrelloClient trelloClient;
 
     @Mock
-    private SimpleEmailService emailService;
+    private SimpleMailService emailService;
 
     @Mock
     private AdminConfig adminConfig;
