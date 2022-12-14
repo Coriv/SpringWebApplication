@@ -26,12 +26,13 @@ public class TrelloService {
 
     public CreatedTrelloCardDto createTrelloCard(final TrelloCardDto trelloCardDto) {
         CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
-        Optional.ofNullable(newCard).ifPresent( card ->
-        emailService.send(Mail.builder()
-                .mailTo(adminConfig.getAdminMail())
-                .subject(SUBJECT)
-                .message("New card: " + trelloCardDto.getName() + " has been created on your Trello account")
-                .build()));
+        Optional.ofNullable(newCard).ifPresent(card ->
+                emailService.send(Mail.builder()
+                        .mailTo(adminConfig.getAdminMail())
+                        .subject(SUBJECT)
+                        .message("New card: " + trelloCardDto.getName() + " has been created on your Trello account")
+                        .shortUrl(card.getShortUrl())
+                        .build()));
         return newCard;
     }
 }
