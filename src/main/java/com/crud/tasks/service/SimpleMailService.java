@@ -35,7 +35,11 @@ public class SimpleMailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage(), mail.getShortUrl()));
+            if(mail.getShortUrl() != null) {
+                messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail));
+            } else {
+                messageHelper.setText(mailCreatorService.buildScheduledDatabaseInfoMail(mail));
+            }
         };
     }
 
@@ -43,7 +47,7 @@ public class SimpleMailService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage(), mail.getShortUrl()));
+        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail));
         Optional.ofNullable(mail.getToCc()).ifPresent(
                 toCc -> mailMessage.setCc(toCc)
         );
