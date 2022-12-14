@@ -36,11 +36,13 @@ dependencies {
 
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
-
-
-	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	onlyIf {
+		project.hasProperty("runtests")
+	}
+	doLast {
+		useJUnitPlatform()
+	}
 }
