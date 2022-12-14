@@ -43,7 +43,7 @@ public class SimpleMailService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
+        mailMessage.setText(mailCreatorService. buildTrelloCardEmail(mail.getMessage()));
         Optional.ofNullable(mail.getToCc()).ifPresent(
                 toCc -> mailMessage.setCc(toCc)
         );
